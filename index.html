@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GDG Storyline</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,400&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Roboto', 'Google Sans', 'sans-serif'],
+            mono: ['Roboto Mono', 'Google Sans Mono', 'monospace']
+          },
+          colors: {
+            gdg: {
+              blue:     '#4285F4',
+              green:    '#34A853',
+              yellow:   '#F9AB00',
+              red:      '#EA4335',
+              offwhite: '#F0F0F0',
+              dark:     '#1E1E1E',
+            },
+            halftone: {
+              blue:   '#57CAFF',
+              green:  '#5CDB6D',
+              yellow: '#FFD427',
+              red:    '#FF7DAF',
+            },
+            pastel: {
+              blue:   '#C3ECF6',
+              green:  '#CCF6C5',
+              yellow: '#FFE7A5',
+              red:    '#F8D8D8',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body { background: #ffffff; color: #1E1E1E; }
+
+    #spline-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    spline-viewer { width: 100%; height: 100%; }
+
+    #top-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: 70px;
+    }
+
+    #dot-nav {
+      position: fixed;
+      right: 28px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .scroll-section {
+      min-height: 100vh;
+      display: flex;
+      scroll-margin-top: 70px;
+    }
+
+    .bg-grid {
+      background-image:
+        linear-gradient(rgba(30,30,30,0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(30,30,30,0.045) 1px, transparent 1px);
+      background-size: 38px 38px;
+    }
+  </style>
+</head>
+
+<body class="font-sans antialiased text-gdg-dark">
+
+<!-- ── Spline fixed background ─────────────────────────────────── -->
+<div id="spline-bg">
+  <script type="module" src="https://cdn.spline.design/@splinetool/viewer@2.0.55/build/spline-viewer.webgpu.js"></script>
+  <spline-viewer url="https://prod.spline.design/AUbVjwEmqm3OgH28/scene.splinecode"></spline-viewer>
+</div>
+
+<!-- ── Top nav ────────────────────────────────────────────────── -->
+<nav id="top-nav"
+     class="flex items-center justify-between px-10 bg-white/80 backdrop-blur-sm border-b border-black/[0.06]">
+  <span class="text-base font-bold tracking-tight text-gdg-dark">GDG Storyline</span>
+</nav>
+
+<!-- ── Right dot nav ──────────────────────────────────────────── -->
+<div id="dot-nav">
+  <div id="dot-num"
+       class="w-9 h-9 rounded-full bg-gdg-blue flex items-center justify-center text-white font-mono font-bold shadow-md"
+       style="font-size: 11px;">01</div>
+  <div class="w-px bg-black/15 rounded-full" style="height: 12px;"></div>
+  <div class="w-2 h-2 rounded-full bg-black/20"></div>
+  <div class="w-2 h-2 rounded-full bg-black/20"></div>
+  <div class="w-2 h-2 rounded-full bg-black/20"></div>
+  <div class="w-2 h-2 rounded-full bg-black/20"></div>
+  <div class="w-2 h-2 rounded-full bg-black/20"></div>
+  <div class="w-2 h-2 rounded-full bg-black/20"></div>
+  <div id="dot-count" class="text-gdg-dark/50 font-mono font-bold mt-1 text-xs">1 / 7</div>
+</div>
+
+<!-- ── Main scrollable content ───────────────────────────────── -->
+<main class="relative z-10" style="padding-top: 70px;">
+
+  <!-- ══ FRAME 1: HERO ══════════════════════════════════════════ -->
+  <section id="frame-1" class="scroll-section items-end justify-center text-center px-6 pb-24">
+    <div class="max-w-2xl bg-white/90 backdrop-blur-md rounded-3xl px-10 py-12 shadow-2xl border border-black/[0.05]">
+      <div class="inline-flex items-center gap-2.5 mb-8">
+        <span class="w-2.5 h-2.5 rounded-full bg-gdg-blue flex-shrink-0"></span>
+        <span class="font-mono text-xs sm:text-sm font-bold tracking-[.18em] text-gdg-dark uppercase">Google Developer Groups</span>
+      </div>
+      <h1 class="font-black text-gdg-dark leading-[1.04] tracking-tight mb-7 whitespace-nowrap"
+          style="font-size: clamp(56px, 9vw, 84px);">
+        Discover GDG
+      </h1>
+      <p class="text-lg sm:text-xl text-gdg-dark/70 leading-relaxed mx-auto mb-12" style="max-width: 540px;">
+        GDG stands for Google Developer Groups—a global network of local,
+        community-led chapters for developers passionate about Google's ecosystem
+        and modern software development.
+      </p>
+      <div class="flex flex-col items-center gap-3.5 text-gdg-dark/40">
+        <span class="text-base italic font-medium font-mono">(Scroll to step inside)</span>
+        <!-- Mouse scroll icon -->
+        <svg width="26" height="40" viewBox="0 0 22 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x=".75" y=".75" width="20.5" height="32.5" rx="10.25"
+                stroke="currentColor" stroke-width="1.5"/>
+          <rect x="9" y="5" width="4" height="7" rx="2" fill="currentColor"/>
+          <path d="M11 24v4M8.5 26.5 11 29l2.5-2.5"
+                stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FRAME 2: LOCALLY ORGANIZED ═══════════════════════════ -->
+  <section id="frame-2" class="scroll-section items-center px-10 md:px-16 gap-10">
+    <div class="flex-1 flex items-center justify-center">
+      <span class="font-black text-gdg-dark select-none leading-none tracking-tight"
+            style="font-size: clamp(90px, 16vw, 240px);"></span>
+    </div>
+    <div class="flex-shrink-0 bg-white/95 backdrop-blur-sm rounded-[32px] border border-black/[.07] shadow-2xl p-10"
+         style="width: 680px; max-width: 100%;">
+      <span class="font-mono text-xs sm:text-sm font-bold text-gdg-blue tracking-[.18em] uppercase block mb-6">
+        01 / A Home for Builders
+      </span>
+      <h2 class="text-4xl sm:text-5xl font-black text-gdg-dark leading-tight mb-6">
+        Locally organized.<br/>Globally empowered.
+      </h2>
+      <p class="text-base sm:text-lg text-gdg-dark/70 leading-relaxed">
+        Google Developer Groups are community groups for developers interested in
+        Google developer technology: Android, Chrome, Drive, and Google Cloud platforms.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══ FRAME 3: THE GOOGLE CONNECTION ════════════════════════ -->
+  <section id="frame-3" class="scroll-section items-center px-10 md:px-16 gap-10">
+    <div class="flex-shrink-0 bg-white/95 backdrop-blur-sm rounded-[32px] border border-black/[.07] shadow-2xl p-9"
+         style="width: 680px; max-width: 100%;">
+      <div class="flex items-center justify-between mb-6">
+        <span class="flex items-center gap-2 font-mono font-bold tracking-[.18em] uppercase text-gdg-dark/60 text-xs">
+          <span>⚡</span> Powered by Google Tech
+        </span>
+        <span class="font-mono font-bold text-gdg-dark/40 text-xs">3 / 7</span>
+      </div>
+
+      <h2 class="text-2xl sm:text-3xl font-black text-gdg-dark leading-snug mb-3">
+        Yes, you got it right—we are crazy about Google technologies!
+      </h2>
+      <p class="text-sm sm:text-base text-gdg-dark/60 mb-6 leading-relaxed">
+        Google supports our community by providing:
+      </p>
+
+      <div class="space-y-3.5 mb-7">
+        <div class="flex gap-4 p-4 rounded-2xl bg-gdg-offwhite border border-black/[.04]">
+          <div class="w-11 h-11 rounded-2xl bg-gdg-red flex-shrink-0 flex items-center justify-center shadow-md">
+            <svg width="18" height="18" viewBox="0 0 14 14" fill="white" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7 0 8.75 5H14L9.6 8.1 11.4 13 7 9.9 2.6 13 4.4 8.1 0 5H5.25Z"/>
+            </svg>
+          </div>
+          <div>
+            <p class="text-sm sm:text-base font-bold text-gdg-dark mb-0.5">Sponsorship & Swag</p>
+            <p class="text-xs sm:text-sm text-gdg-dark/65 leading-snug">
+              Event funding, infrastructure, and official gear.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex gap-4 p-4 rounded-2xl bg-gdg-offwhite border border-black/[.04]">
+          <div class="w-11 h-11 rounded-2xl bg-gdg-blue flex-shrink-0 flex items-center justify-center shadow-md">
+            <svg width="18" height="18" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="7.5" cy="4.5" r="3" fill="white"/>
+              <path d="M1 14c0-3.6 2.9-6.5 6.5-6.5S14 10.4 14 14"
+                    stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <p class="text-sm sm:text-base font-bold text-gdg-dark mb-0.5">Developer Ecosystem</p>
+            <p class="text-xs sm:text-sm text-gdg-dark/65 leading-snug">
+              Direct access to platforms like Android, Google Cloud, Firebase, and Gemini.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex gap-4 p-4 rounded-2xl bg-gdg-offwhite border border-black/[.04]">
+          <div class="w-11 h-11 rounded-2xl bg-gdg-green flex-shrink-0 flex items-center justify-center shadow-md">
+            <svg width="18" height="18" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="4.5" cy="4" r="2.5" fill="white"/>
+              <circle cx="10.5" cy="4" r="2.5" fill="white"/>
+              <path d="M0 13c0-2.5 2-4.5 4.5-4.5M15 13c0-2.5-2-4.5-4.5-4.5M4.5 8.5C6.7 8.5 8.5 10.1 8.5 12v1H.5v-1C.5 10.1 2.3 8.5 4.5 8.5z"
+                    fill="white"/>
+            </svg>
+          </div>
+          <div>
+            <p class="text-sm sm:text-base font-bold text-gdg-dark mb-0.5">Industry Experts</p>
+            <p class="text-xs sm:text-sm text-gdg-dark/65 leading-snug">
+              Connections to Google Developer Experts (GDEs) and Googler speakers.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap gap-2 items-center">
+        <span class="font-mono font-bold tracking-[.14em] uppercase text-gdg-dark/50 text-xs mr-1">Ecosystem:</span>
+        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-pastel-blue text-gdg-dark text-xs font-mono font-bold">
+          <span class="w-2 h-2 rounded-full bg-gdg-blue"></span>Google Cloud
+        </span>
+        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-pastel-blue text-gdg-dark text-xs font-mono font-bold">
+          <span class="w-2 h-2 rounded-full bg-gdg-blue"></span>Gemini AI
+        </span>
+        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-pastel-green text-gdg-dark text-xs font-mono font-bold">
+          <span class="w-2 h-2 rounded-full bg-gdg-green"></span>Android
+        </span>
+        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-pastel-blue text-gdg-dark text-xs font-mono font-bold">
+          <span class="w-2 h-2 rounded-full bg-gdg-blue"></span>Flutter
+        </span>
+        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-pastel-yellow text-gdg-dark text-xs font-mono font-bold">
+          <span class="w-2 h-2 rounded-full bg-gdg-yellow"></span>Firebase
+        </span>
+      </div>
+    </div>
+
+    <div class="flex-1 flex items-center justify-center relative overflow-hidden rounded-3xl"
+         style="min-height: 400px;">
+      <div class="absolute inset-0 bg-grid rounded-3xl"></div>
+      <span class="relative font-black text-gdg-dark select-none leading-none tracking-tight"
+            style="font-size: clamp(90px, 13vw, 200px);">
+      </span>
+    </div>
+  </section>
+
+  <!-- ══ FRAME 4: OUR INDEPENDENCE ══════════════════════════════ -->
+  <section id="frame-4" class="scroll-section items-center px-10 md:px-20 gap-10">
+    <!-- Left column: Text Content -->
+    <div class="flex-1" style="max-width: 600px;">
+      <h2 class="font-black text-gdg-dark leading-tight mb-8"
+          style="font-size: clamp(42px, 6vw, 60px);">
+        Run by the Community, for the Community 👥
+      </h2>
+      <p class="text-base sm:text-lg text-gdg-dark/70 leading-relaxed mb-4">
+        While supported by Google,
+        <strong class="text-gdg-dark font-bold">we are not paid Google employees</strong>
+        or official corporate representatives.
+      </p>
+      <p class="text-base sm:text-lg text-gdg-dark/70 leading-relaxed mb-8">
+        We are local software engineers, students, and tech enthusiasts donating our time
+        to share knowledge, exchange ideas, and build local tech ecosystems worldwide.
+      </p>
+
+      <div class="flex items-start gap-3.5 p-5 bg-pastel-green/60 border border-gdg-green/20 rounded-2xl mb-8 shadow-sm">
+        <span class="text-gdg-green text-lg flex-shrink-0 mt-0.5">✅</span>
+        <p class="text-sm sm:text-base text-gdg-dark font-medium leading-relaxed">
+          Autonomous chapter leadership fostering technical innovation
+          with wide-open doors for all.
+        </p>
+      </div>
+
+      <div class="flex flex-wrap gap-2.5">
+        <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-black/10 text-xs sm:text-sm font-bold text-gdg-dark bg-white/90">
+          <code class="text-gdg-blue font-mono">&lt;/&gt;</code>
+          By Developers, For Developers
+        </span>
+        <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-black/10 text-xs sm:text-sm font-bold text-gdg-dark bg-white/90">
+          <span class="w-2 h-2 rounded-full bg-gdg-green flex-shrink-0"></span>
+          Open & Inclusive
+        </span>
+        <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-black/10 text-xs sm:text-sm font-bold text-gdg-dark bg-white/90">
+          <span class="w-2 h-2 rounded-full bg-gdg-red flex-shrink-0"></span>
+          100% Volunteer Driven
+        </span>
+      </div>
+    </div>
+
+    <!-- Right column: Centered SVG Badge -->
+    <div class="flex-1 flex items-center justify-center">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 600 600" class="w-72 h-72 sm:w-88 sm:h-88 max-w-full h-auto">
+        <defs>
+          <style>
+            .cls-1 { fill: #efefef; }
+            .cls-2 { fill: #ffa600; }
+            .cls-3 { fill: #1e1e1e; }
+            .cls-4 { fill: #1f86fb; }
+            .cls-5 { fill: #00aa47; }
+            .cls-6 { fill: #fff; }
+            .cls-7 { fill: #cbcbcb; }
+            .cls-8 { fill: #fd2b25; }
+            .cls-9 { filter: url(#AI_Shadow_3); opacity: .2; }
+          </style>
+          <filter id="AI_Shadow_3" x="-15%" y="-15%" width="140%" height="130%">
+            <feGaussianBlur in="SourceAlpha" result="blur" stdDeviation="10"/>
+            <feOffset dx="0" dy="5" in="blur" result="offsetBlurredAlpha"/>
+            <feMerge>
+              <feMergeNode in="offsetBlurredAlpha"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
+        <g>
+          <g id="Speaker_Badge">
+            <g>
+              <g>
+                <g id="svg_shadow" class="cls-9">
+                  <circle class="cls-7" cx="296" cy="300" r="239.7"/>
+                </g>
+                <g id="base">
+                  <g>
+                    <circle class="cls-1" cx="296.5" cy="300" r="241.5"/>
+                    <path class="cls-6" d="M296.5,73.5c30.6,0,60.2,6,88.2,17.8,27,11.4,51.2,27.7,72,48.5s37.1,45,48.5,72c11.8,27.9,17.8,57.6,17.8,88.2s-6,60.2-17.8,88.2c-11.4,27-27.7,51.2-48.5,72s-45,37.1-72,48.5c-27.9,11.8-57.6,17.8-88.2,17.8s-60.2-6-88.2-17.8c-27-11.4-51.2-27.7-72-48.5s-37.1-45-48.5-72c-11.8-27.9-17.8-57.6-17.8-88.2s6-60.2,17.8-88.2c11.4-27,27.7-51.2,48.5-72s45-37.1,72-48.5c27.9-11.8,57.6-17.8,88.2-17.8M296.5,58.5c-133.4,0-241.5,108.1-241.5,241.5s108.1,241.5,241.5,241.5,241.5-108.1,241.5-241.5S429.8,58.5,296.5,58.5h0Z"/>
+                  </g>
+                </g>
+              </g>
+              <g>
+                <g>
+                  <rect class="cls-8" x="179" y="182.6" width="114.4" height="49.4" rx="24.7" ry="24.7" transform="translate(-76.6 176.8) rotate(-35.7)"/>
+                  <path class="cls-3" d="M209.9,252.9c-1.4,0-2.9-.1-4.3-.4-7-1.1-13.1-5-17.3-10.7-4.1-5.8-5.8-12.8-4.6-19.8,1.1-7,5-13.1,10.7-17.3l52.8-37.9c5.8-4.1,12.8-5.8,19.8-4.6,7,1.1,13.1,5,17.3,10.7h0c4.1,5.8,5.8,12.8,4.6,19.8-1.1,7-5,13.1-10.7,17.3l-52.8,37.9c-4.6,3.3-9.9,5-15.4,5ZM262.6,165.5c-4.7,0-9.4,1.5-13.3,4.3l-52.8,37.9c-5,3.6-8.2,8.8-9.2,14.9-1,6,.4,12.1,4,17,3.6,5,8.8,8.2,14.9,9.2,6,1,12.1-.4,17-4l52.8-37.9c5-3.6,8.2-8.8,9.2-14.9,1-6-.4-12.1-4-17h0c-3.6-5-8.8-8.2-14.9-9.2-1.2-.2-2.5-.3-3.7-.3Z"/>
+                </g>
+                <g>
+                  <rect class="cls-4" x="211.5" y="188.1" width="49.4" height="114.4" rx="24.7" ry="24.7" transform="translate(-100.8 294) rotate(-54.3)"/>
+                  <path class="cls-3" d="M262.6,290.8c-5.5,0-10.9-1.7-15.4-5l-52.8-37.9c-11.9-8.5-14.6-25.2-6.1-37.1h0c4.1-5.8,10.3-9.6,17.3-10.7,7-1.1,14,.5,19.8,4.6l52.8,37.9c11.9,8.5,14.6,25.2,6.1,37.1-4.1,5.8-10.3,9.6-17.3,10.7-1.5.2-2.9.4-4.3.4ZM209.9,203.5c-1.2,0-2.5.1-3.7.3-6,1-11.3,4.3-14.9,9.2h0c-3.6,5-5,11-4,17,1,6,4.3,11.3,9.2,14.9l52.8,37.9c5,3.6,11,5,17,4,6-1,11.3-4.3,14.9-9.2,3.6-5,5-11,4-17-1-6-4.3-11.3-9.2-14.9l-52.8-37.9c-3.9-2.8-8.5-4.3-13.3-4.3Z"/>
+                </g>
+                <g>
+                  <rect class="cls-2" x="306.6" y="220.6" width="114.4" height="49.4" rx="24.7" ry="24.7" transform="translate(-74.8 258.4) rotate(-35.7)"/>
+                  <path class="cls-3" d="M337.4,290.8c-8.3,0-16.4-3.8-21.6-11-8.5-11.9-5.8-28.5,6.1-37.1l52.8-37.9c5.8-4.1,12.8-5.8,19.8-4.6,7,1.1,13.1,5,17.3,10.7,8.5,11.9,5.8,28.5-6.1,37.1l-52.8,37.9c-4.7,3.4-10.1,5-15.5,5ZM390.1,203.5c-4.7,0-9.4,1.5-13.3,4.3l-52.8,37.9c-10.2,7.4-12.6,21.7-5.2,31.9,7.4,10.2,21.7,12.6,31.9,5.2l52.8-37.9c10.2-7.4,12.6-21.7,5.2-31.9-3.6-5-8.8-8.2-14.9-9.2-1.2-.2-2.5-.3-3.7-.3Z"/>
+                </g>
+                <g>
+                  <rect class="cls-5" x="339.1" y="150.1" width="49.4" height="114.4" rx="24.7" ry="24.7" transform="translate(-16.9 381.7) rotate(-54.3)"/>
+                  <path class="cls-3" d="M390.1,252.9c-5.5,0-10.9-1.7-15.4-5l-52.8-37.9c-11.9-8.5-14.6-25.2-6.1-37.1h0c8.5-11.9,25.2-14.6,37.1-6.1l52.8,37.9c11.9,8.5,14.6,25.2,6.1,37.1-4.1,5.8-10.3,9.6-17.3,10.7-1.5.2-2.9.4-4.3.4ZM318.8,175c-3.6,5-5,11-4,17,1,6,4.3,11.3,9.2,14.9l52.8,37.9c5,3.6,11,5,17,4,6-1,11.3-4.3,14.9-9.2,3.6-5,5-11,4-17-1-6-4.3-11.3-9.2-14.9l-52.8-37.9c-10.2-7.4-24.5-5-31.9,5.2h0Z"/>
+                </g>
+              </g>
+              <g>
+                <path class="cls-3" d="M300,484.1c-44.4,0-80.5-33.2-80.5-74s36.1-74,80.5-74,80.5,33.2,80.5,74-36.1,74-80.5,74ZM300,339.9c-42.3,0-76.8,31.5-76.8,70.3s34.4,70.3,76.8,70.3,76.8-31.5,76.8-70.3-34.4-70.3-76.8-70.3Z"/>
+                <path class="cls-3" d="M300,484.1c-20.1,0-35.8-32.5-35.8-74s15.7-74,35.8-74,35.8,32.5,35.8,74-15.7,74-35.8,74ZM300,339.9c-8.3,0-16.2,7.1-22.3,20.1-6.3,13.4-9.8,31.2-9.8,50.2s3.5,36.8,9.8,50.2c6.1,12.9,14,20.1,22.3,20.1s16.2-7.1,22.3-20.1c6.3-13.4,9.8-31.2,9.8-50.2s-3.5-36.8-9.8-50.2c-6.1-12.9-14-20.1-22.3-20.1Z"/>
+                <rect class="cls-3" x="226.9" y="381.5" width="146.1" height="3.7"/>
+                <rect class="cls-3" x="226.9" y="434.9" width="146.1" height="3.7"/>
+              </g>
+            </g>
+          </g>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ══ FRAME 5: WORLDWIDE MOVEMENT ════════════════════════════ -->
+  <section id="frame-6" class="scroll-section flex-col items-center justify-end pb-24 px-6">
+    <div class="w-full bg-white/90 backdrop-blur-md rounded-[32px] border border-black/[.07] shadow-2xl p-10 text-center"
+         style="max-width: 800px;">
+      <h2 class="text-4xl sm:text-5xl font-black text-gdg-dark mb-4">A Worldwide Movement 🌍</h2>
+      <p class="text-base sm:text-lg text-gdg-dark/65 mb-10 leading-relaxed">
+        When you step into GDG, you join a massive global network:
+      </p>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="p-5 bg-gdg-offwhite rounded-2xl border border-black/[.05] shadow-sm">
+          <div class="text-3xl sm:text-4xl font-black text-gdg-blue font-mono">1,000+</div>
+          <div class="text-gdg-dark/60 mt-1.5 text-xs sm:text-sm font-bold">GDG chapters worldwide</div>
+        </div>
+        <div class="p-5 bg-gdg-offwhite rounded-2xl border border-black/[.05] shadow-sm">
+          <div class="text-3xl sm:text-4xl font-black text-gdg-red font-mono">145+</div>
+          <div class="text-gdg-dark/60 mt-1.5 text-xs sm:text-sm font-bold">Countries represented</div>
+        </div>
+        <div class="p-5 bg-gdg-offwhite rounded-2xl border border-black/[.05] shadow-sm">
+          <div class="text-3xl sm:text-4xl font-black text-gdg-green font-mono">412K+</div>
+          <div class="text-gdg-dark/60 mt-1.5 text-xs sm:text-sm font-bold">Registered members</div>
+        </div>
+        <div class="p-5 bg-gdg-offwhite rounded-2xl border border-black/[.05] shadow-sm">
+          <div class="text-3xl sm:text-4xl font-black text-gdg-yellow font-mono">5,000</div>
+          <div class="text-gdg-dark/60 mt-1.5 text-xs sm:text-sm font-bold">Active organizers</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FRAME 6: BEYOND THE TERMINAL ═══════════════════════════ -->
+  <section id="frame-5" class="scroll-section items-center justify-center px-8">
+    <div class="w-full bg-white/90 backdrop-blur-md rounded-[32px] border border-black/[.07] shadow-2xl overflow-hidden"
+         style="max-width: 800px;">
+      <div class="flex items-center justify-between px-9 py-6 border-b border-black/[.05]">
+        <span class="flex items-center gap-2.5 font-mono font-bold tracking-[.18em] uppercase text-gdg-dark/50 text-xs sm:text-sm">
+          <span class="w-2 h-2 rounded-full bg-gdg-red"></span>
+          Chapter 03 — Beyond the Terminal
+        </span>
+        <span class="flex items-center gap-2 font-mono font-bold text-gdg-green text-xs sm:text-sm">
+          <span class="w-2 h-2 rounded-full bg-gdg-green"></span>
+          Frame 04 Active
+        </span>
+      </div>
+
+      <div class="px-9 py-8">
+        <h2 class="text-3xl sm:text-4xl font-black text-gdg-dark mb-8">Beyond the Terminal 🚀</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+          <div class="p-5 rounded-2xl bg-gdg-offwhite border border-black/[.04]">
+            <div class="flex items-center justify-between mb-3">
+              <span class="font-mono font-bold text-gdg-dark/40 tracking-widest text-xs">01</span>
+              <span class="w-2.5 h-2.5 rounded-full bg-gdg-blue"></span>
+            </div>
+            <p class="text-base font-bold text-gdg-dark mb-1.5">Impact</p>
+            <p class="text-xs sm:text-sm text-gdg-dark/65 leading-relaxed">
+              A space that helps people discover what's possible in tech.
+            </p>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-gdg-offwhite border border-black/[.04]">
+            <div class="flex items-center justify-between mb-3">
+              <span class="font-mono font-bold text-gdg-dark/40 tracking-widest text-xs">02</span>
+              <span class="w-2.5 h-2.5 rounded-full bg-gdg-red"></span>
+            </div>
+            <p class="text-base font-bold text-gdg-dark mb-1.5">Action</p>
+            <p class="text-xs sm:text-sm text-gdg-dark/65 leading-relaxed">
+              A launchpad to generate ideas, implement them, and see real-world results.
+            </p>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-gdg-offwhite border border-black/[.04]">
+            <div class="flex items-center justify-between mb-3">
+              <span class="font-mono font-bold text-gdg-dark/40 tracking-widest text-xs">03</span>
+              <span class="w-2.5 h-2.5 rounded-full bg-gdg-green"></span>
+            </div>
+            <p class="text-base font-bold text-gdg-dark mb-1.5">Connection</p>
+            <p class="text-xs sm:text-sm text-gdg-dark/65 leading-relaxed">
+              A welcoming environment to find true friends who share your technical curiosity and drive.
+            </p>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-gdg-offwhite border border-black/[.04]">
+            <div class="flex items-center justify-between mb-3">
+              <span class="font-mono font-bold text-gdg-dark/40 tracking-widest text-xs">04</span>
+              <span class="w-2.5 h-2.5 rounded-full bg-gdg-yellow"></span>
+            </div>
+            <p class="text-base font-bold text-gdg-dark mb-1.5">Growth & Leadership</p>
+            <p class="text-xs sm:text-sm text-gdg-dark/65 leading-relaxed">
+              Level up leadership, organize regional gatherings, and inspire future creators.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex gap-2.5">
+          <span class="px-4 py-1.5 rounded-full font-mono font-bold bg-pastel-blue text-gdg-dark text-xs sm:text-sm">#DevFest</span>
+          <span class="px-4 py-1.5 rounded-full font-mono font-bold bg-pastel-yellow text-gdg-dark text-xs sm:text-sm">#GoogleAI</span>
+          <span class="px-4 py-1.5 rounded-full font-mono font-bold bg-pastel-green text-gdg-dark text-xs sm:text-sm">#CloudHero</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FRAME 7: CONCLUSION & CTA ══════════════════════════════ -->
+  <section id="frame-7" class="scroll-section flex-col items-stretch justify-between">
+    <div class="flex-1 flex flex-col items-center justify-center text-center px-6 py-24 bg-white/85 backdrop-blur-sm">
+      <h2 class="font-black leading-tight mb-8" style="font-size: clamp(48px, 7vw, 72px); max-width: 720px;">
+        <span class="text-gdg-blue">You</span>
+        <span class="text-gdg-dark"> Are the </span>
+        <span class="text-gdg-dark underline decoration-gdg-green underline-offset-8"
+              style="text-decoration-thickness: 6px;">Main Power</span>
+        <span class="text-gdg-dark"> of GDG</span>
+      </h2>
+
+      <p class="text-base sm:text-lg text-gdg-dark/70 leading-relaxed mb-6" style="max-width: 680px;">
+        The true force behind this global movement isn't code, APIs, or platforms—it is people.
+        Community initiatives and flagship events—like DevFests, Study Jams, and Hackathons—happen
+        because passionate individuals step up to build something bigger than themselves.
+        By joining us, you aren't just helping run an event; you are shaping the local developer
+        ecosystem and inspiring the next generation of builders.
+      </p>
+
+      <p class="text-lg sm:text-xl font-bold text-gdg-dark mb-12 leading-snug" style="max-width: 580px;">
+        Join our GDG team as a volunteer and help us spread knowledge,
+        spark innovation, and share the passion!
+      </p>
+
+<!--      <a href="https://gdg.community.dev" target="_blank" rel="noopener"-->
+<!--         class="inline-flex items-center gap-3 px-10 py-4 bg-gdg-blue hover:bg-blue-600-->
+<!--                text-white text-base font-bold rounded-full shadow-xl-->
+<!--                transition-all hover:scale-105 active:scale-95">-->
+<!--        Join as a Volunteer <span aria-hidden="true">→</span>-->
+<!--      </a>-->
+    </div>
+
+    <footer class="border-t border-black/[.07] px-10 py-6 flex items-center justify-between bg-white/60 backdrop-blur-sm">
+      <div class="flex items-center gap-2.5 text-xs sm:text-sm text-gdg-dark/60 font-medium">
+        <span class="w-2 h-2 rounded-full bg-gdg-blue flex-shrink-0"></span>
+        Google Developer Groups Community
+      </div>
+      <div class="flex items-center gap-8 text-xs sm:text-sm text-gdg-dark/60 font-mono font-medium">
+        <span>Crafted for Developers Worldwide</span>
+      </div>
+    </footer>
+  </section>
+
+</main>
+
+<script>
+  const sections = Array.from(document.querySelectorAll('.scroll-section'));
+  const dotNum   = document.getElementById('dot-num');
+  const dotCount = document.getElementById('dot-count');
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const i = sections.indexOf(e.target) + 1;
+        dotNum.textContent   = String(i).padStart(2, '0');
+        dotCount.textContent = `${i} / 7`;
+      }
+    });
+  }, { threshold: 0.5 });
+
+  sections.forEach(s => io.observe(s));
+</script>
+
+</body>
+</html>
